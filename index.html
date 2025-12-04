@@ -2434,14 +2434,18 @@ async function apiGet(action, params = {}) {
   const url = new URL(API_URL);
   url.searchParams.set('action', action);
   Object.keys(params).forEach(k => url.searchParams.set(k, params[k]));
-  const res = await fetch(url);
+  const res = await fetch(url.toString(), {
+    method: 'GET',
+    redirect: 'follow'
+  });
   return res.json();
 }
 
 async function apiPost(action, data = {}) {
   const res = await fetch(API_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ action, ...data })
   });
   return res.json();
