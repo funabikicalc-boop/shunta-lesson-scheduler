@@ -3391,22 +3391,6 @@ function filterStudents() {
       resultEl.innerHTML = html;
     }
     
-    // generatePreviewを修正して編集可能版を使う
-    function generatePreview() {
-      const year = parseInt(document.getElementById('schedule-year').value);
-      const month = parseInt(document.getElementById('schedule-month').value);
-      
-      if (!year || !month) {
-        alert('年月を入力してください');
-        return;
-      }
-      
-      const resultEl = document.getElementById('schedule-result');
-      resultEl.innerHTML = '<div class="loading"><div class="spinner"></div>スケジュール生成中...</div>';
-      document.getElementById('schedule-stats').style.display = 'none';
-      document.getElementById('btn-commit').style.display = 'none';
-      document.getElementById('draft-notice').style.display = 'none';
-      
       
     
     // ========== 割当詳細モーダル ==========
