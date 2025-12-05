@@ -1426,7 +1426,6 @@
       }
       
       /* スケジュール作成 */
-      /* スケジュール作成 */
 .schedule-header {
   flex-direction: row;
   flex-wrap: wrap;
@@ -1694,6 +1693,28 @@
         width: 22px;
         height: 22px;
       }
+
+      /* カードヘッダーのボタンをコンパクトに */
+.card-header .btn {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  min-height: auto;
+}
+
+.card-header .btn .material-icons {
+  font-size: 1rem;
+}
+
+.card-header {
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 1rem;
+  white-space: nowrap;
+}
       
       /* スケジュールアイテムのアクションボタン */
       .schedule-item .item-actions {
