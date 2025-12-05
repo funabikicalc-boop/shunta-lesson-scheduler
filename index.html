@@ -2584,16 +2584,17 @@ function loadPlaces() {
 }
     
     // ========== 生徒管理 ==========
-    function loadStudents() {
+   function loadStudents() {
   const container = document.getElementById('student-list');
   container.innerHTML = '<div class="loading"><div class="spinner"></div>読み込み中...</div>';
   
   apiGet('getStudents')
     .then(result => {
-  const students = (result && result.students) || [];
-  allStudents = students; // 検索用に保持
-  document.getElementById('student-search').value = ''; // 検索欄クリア
-  if (students.length === 0) {
+      const students = (result && result.students) || [];
+      allStudents = students; // ★ 検索用に保持
+      document.getElementById('student-search').value = ''; // ★ 検索欄クリア
+      
+      if (students.length === 0) {
         container.innerHTML = '<div class="empty-state"><span class="material-icons">person_off</span><p>生徒が登録されていません</p></div>';
         return;
       }
