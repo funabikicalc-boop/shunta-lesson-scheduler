@@ -1473,27 +1473,31 @@
       }
       
       .schedule-item {
-        padding: 14px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      
-      .schedule-time {
-        font-size: 1rem;
-        min-width: auto;
-        width: 100%;
-      }
-      
-      .schedule-student {
-        font-size: 1.05rem;
-      }
-      
-      .schedule-place {
-        font-size: 0.9rem;
-        padding: 6px 14px;
-      }
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.schedule-time {
+  font-size: 0.75rem;
+  min-width: auto;
+  width: auto;
+}
+
+.schedule-student {
+  font-size: 0.85rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.schedule-place {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+}
       
       /* 未割当リスト */
       .unassigned-list {
