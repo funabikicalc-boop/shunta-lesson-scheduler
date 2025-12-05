@@ -1472,16 +1472,17 @@
   font-size: 1rem;
 }
 
-  /* 講師不可日程の年月を1行に */
+/* 講師不可日程の年月を1行に */
 #tab-blocks .card > div[style*="padding:16px"] {
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 6px !important;
-  align-items: flex-end !important;
+  align-items: center !important;
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .form-group {
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
   gap: 2px !important;
   flex: 0 0 auto !important;
@@ -1489,23 +1490,16 @@
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .form-label {
-  display: none !important;
-}
-
-#tab-blocks .card > div[style*="padding:16px"] .form-group:nth-of-type(1)::after {
-  content: '年';
-  font-size: 0.85rem;
-  color: var(--gray-600);
-}
-
-#tab-blocks .card > div[style*="padding:16px"] .form-group:nth-of-type(2)::after {
-  content: '月';
-  font-size: 0.85rem;
-  color: var(--gray-600);
+  display: block !important;
+  order: 2 !important;
+  font-size: 0.85rem !important;
+  color: var(--gray-600) !important;
+  margin: 0 !important;
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .form-input {
-  width: 60px !important;
+  order: 1 !important;
+  width: 55px !important;
   padding: 8px 4px !important;
   text-align: center;
 }
