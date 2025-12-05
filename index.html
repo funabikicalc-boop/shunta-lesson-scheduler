@@ -1427,15 +1427,17 @@
       
       /* スケジュール作成 */
 /* スケジュール作成・時系列ビューの年月を1行に */
+/* スケジュール作成・時系列ビューの年月を1行に */
 .schedule-header {
   display: flex;
   flex-wrap: nowrap;
-  align-items: flex-end;
+  align-items: center;
   gap: 6px;
 }
 
 .schedule-header .form-group {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 2px;
   width: auto;
@@ -1443,25 +1445,18 @@
 }
 
 .schedule-header .form-label {
-  display: none;
-}
-
-.schedule-header .form-group:nth-of-type(1)::after {
-  content: '年';
+  display: block;
+  order: 2;
   font-size: 0.85rem;
   color: var(--gray-600);
-}
-
-.schedule-header .form-group:nth-of-type(2)::after {
-  content: '月';
-  font-size: 0.85rem;
-  color: var(--gray-600);
+  margin: 0;
 }
 
 .schedule-header .form-input {
-  width: 60px !important;
+  order: 1;
+  width: 55px !important;
   padding: 8px 4px !important;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   text-align: center;
 }
 
