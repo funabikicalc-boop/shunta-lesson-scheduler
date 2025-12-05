@@ -1770,7 +1770,43 @@
         height: 44px;
       }
     }
-  /* 検索ボックス */
+
+    /* 年月入力を中央寄せ */
+.schedule-header .form-input,
+#block-year,
+#block-month {
+  text-align: center;
+}
+
+    /* 講師不可日程の年月選択を1行に */
+#tab-blocks .card > div[style*="padding:16px"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: flex-end !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-group {
+  flex: 1 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-input {
+  width: 100% !important;
+  padding: 10px 8px !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-label {
+  font-size: 0.75rem !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .btn {
+  width: 100% !important;
+  flex-basis: 100% !important;
+  margin-top: 4px !important;
+}
+
 /* 検索ボックス */
 .search-box {
   display: flex;
