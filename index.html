@@ -1891,16 +1891,20 @@
           <!-- 左：一覧 -->
           <div class="card student-list-card">
             <div class="card-header">
-              <h3 class="card-title">
-                <span class="material-icons">list</span>
-                生徒一覧
-              </h3>
-              <button class="btn btn-secondary" onclick="loadStudents()">
-                <span class="material-icons">refresh</span>
-                更新
-              </button>
-            </div>
-            <div id="student-list" class="list-container student-list-scroll">
+  <h3 class="card-title">
+    <span class="material-icons">list</span>
+    生徒一覧
+  </h3>
+  <button class="btn btn-secondary" onclick="loadStudents()">
+    <span class="material-icons">refresh</span>
+    更新
+  </button>
+</div>
+<div class="search-box">
+  <span class="material-icons">search</span>
+  <input type="text" id="student-search" class="form-input" placeholder="名前で検索..." oninput="filterStudents()">
+</div>
+<div id="student-list" class="list-container student-list-scroll">
               <div class="loading">
                 <div class="spinner"></div>
                 読み込み中...
