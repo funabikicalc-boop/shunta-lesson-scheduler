@@ -1426,33 +1426,99 @@
       }
       
       /* スケジュール作成 */
+/* スケジュール作成・時系列ビューの年月を1行に */
 .schedule-header {
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: flex;
+  flex-wrap: nowrap;
   align-items: flex-end;
-  gap: 8px;
+  gap: 6px;
 }
 
 .schedule-header .form-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   width: auto;
-  flex: 1;
-  min-width: 0;
-}
-
-.schedule-header .form-input {
-  width: 100% !important;
-  padding: 10px 8px;
-  font-size: 0.95rem;
+  flex: 0 0 auto;
 }
 
 .schedule-header .form-label {
-  font-size: 0.75rem;
+  display: none;
+}
+
+.schedule-header .form-group:nth-of-type(1)::after {
+  content: '年';
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+.schedule-header .form-group:nth-of-type(2)::after {
+  content: '月';
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+.schedule-header .form-input {
+  width: 60px !important;
+  padding: 8px 4px !important;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 .schedule-header .btn {
-  width: 100%;
-  flex-basis: 100%;
-  margin-top: 4px;
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+}
+
+.schedule-header .btn .material-icons {
+  font-size: 1rem;
+}
+
+  /* 講師不可日程の年月を1行に */
+#tab-blocks .card > div[style*="padding:16px"] {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  align-items: flex-end !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-label {
+  display: none !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-group:nth-of-type(1)::after {
+  content: '年';
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-group:nth-of-type(2)::after {
+  content: '月';
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-input {
+  width: 60px !important;
+  padding: 8px 4px !important;
+  text-align: center;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .btn {
+  flex: 1 !important;
+  padding: 8px 10px !important;
+  font-size: 0.8rem !important;
 }
       
       /* 統計カード */
