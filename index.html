@@ -1839,35 +1839,43 @@
   text-align: center;
 }
 
-    /* 講師不可日程の年月選択を1行に */
+/* 講師不可日程の年月を1行に */
 #tab-blocks .card > div[style*="padding:16px"] {
   display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 8px !important;
-  align-items: flex-end !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  align-items: center !important;
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .form-group {
-  flex: 1 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 2px !important;
+  flex: 0 0 auto !important;
   margin: 0 !important;
-  min-width: 0 !important;
-}
-
-#tab-blocks .card > div[style*="padding:16px"] .form-input {
-  width: 100% !important;
-  padding: 10px 8px !important;
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .form-label {
-  font-size: 0.75rem !important;
+  display: block !important;
+  order: 2 !important;
+  font-size: 0.85rem !important;
+  color: var(--gray-600) !important;
+  margin: 0 !important;
+}
+
+#tab-blocks .card > div[style*="padding:16px"] .form-input {
+  order: 1 !important;
+  width: 55px !important;
+  padding: 8px 4px !important;
+  text-align: center;
 }
 
 #tab-blocks .card > div[style*="padding:16px"] .btn {
-  width: 100% !important;
-  flex-basis: 100% !important;
-  margin-top: 4px !important;
+  flex: 1 !important;
+  padding: 8px 10px !important;
+  font-size: 0.8rem !important;
 }
-
 /* 検索ボックス */
 .search-box {
   display: flex;
