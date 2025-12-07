@@ -3743,8 +3743,8 @@ function filterStudents() {
     });
 }
     
-    // 選択したレッスンを一括削除
-    function deleteSelectedTimelines() {
+    // 選択したレッスンを一括削除（修正版）
+function deleteSelectedTimelines() {
   const checkboxes = document.querySelectorAll('.item-checkbox:checked');
   if (checkboxes.length === 0) {
     alert('削除するレッスンを選択してください');
@@ -3757,35 +3757,33 @@ function filterStudents() {
     return;
   }
   
-  const sortedRows = rows.sort((a, b) => b - a);
-  let completed = 0;
-  let errors = [];
+  // ローディング表示
+  const resultEl = document.getElementById('timeline-result');
+  const originalHtml = resultEl.innerHTML;
+  resultEl.innerHTML = '<div class="loading"><div class="spinner"></div>削除中...</div>';
   
-  sortedRows.forEach(rowNum => {
-    apiPost('deleteTimelineItem', { rowNumber: rowNum })
-      .then(result => {
-        completed++;
-        if (!result || !result.ok) {
-          errors.push(result?.error || '不明なエラー');
+  // 新しい一括削除APIを使用
+  apiPost('deleteMultipleTimelineItems', { rowNumbers: rows })
+    .then(result => {
+      if (result && result.ok) {
+        let msg = `${result.deletedCount} 件削除しました`;
+        if (result.calendarDeletedCount > 0) {
+          msg += `（カレンダー: ${result.calendarDeletedCount} 件）`;
         }
-        
-        if (completed === sortedRows.length) {
-          if (errors.length > 0) {
-            alert(`${sortedRows.length - errors.length} 件削除、${errors.length} 件エラー`);
-          }
-          loadTimeline();
+        if (result.errors && result.errors.length > 0) {
+          msg += `\n\n⚠️ ${result.errors.length} 件のエラー:\n${result.errors.join('\n')}`;
         }
-      })
-      .catch(err => {
-        completed++;
-        errors.push(err.message);
-        
-        if (completed === sortedRows.length) {
-          alert(`${sortedRows.length - errors.length} 件削除、${errors.length} 件エラー`);
-          loadTimeline();
-        }
-      });
-  });
+        alert(msg);
+        loadTimeline();
+      } else {
+        alert('エラー: ' + (result?.error || '不明'));
+        resultEl.innerHTML = originalHtml;
+      }
+    })
+    .catch(err => {
+      alert('エラー: ' + err.message);
+      resultEl.innerHTML = originalHtml;
+    });
 }
     
     function openTimelineEditModal(rowNum) {
