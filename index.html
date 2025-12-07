@@ -1914,6 +1914,16 @@
   outline: none;
   box-shadow: none;
 }
+
+/* 日付範囲ヒント */
+.date-range-hint {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+    
+  </style>
     
   </style>
 </head>
@@ -2295,9 +2305,14 @@
               <input type="hidden" name="_row">
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">日付 *</label>
-                  <input type="date" name="日付" class="form-input" required>
+                <label class="form-label">開始日 *</label>
+                <input type="date" name="日付" class="form-input" required>
                 </div>
+                <div class="form-group">
+  <label class="form-label">終了日（連続登録用）</label>
+  <input type="date" name="終了日" class="form-input">
+  <span class="date-range-hint">※ 空欄なら開始日のみ登録</span>
+</div>
                 <div class="form-group">
                   <label class="form-label">場所（空欄＝全場所）</label>
                   <select name="場所" class="form-select place-select"></select>
@@ -2991,22 +3006,23 @@ function filterStudents() {
 }
     
     function selectBlock(block) {
-      document.getElementById('block-form-title').textContent = '編集';
-      const form = document.getElementById('block-form');
-      
-      form['_row'].value = block._row || '';
-      
-      // 日付を yyyy-MM-dd 形式に変換
-      let dateVal = block['日付'] || '';
-      if (dateVal.includes('/')) {
-        dateVal = dateVal.replace(/\//g, '-');
-      }
-      form['日付'].value = dateVal;
-      
-      form['不可開始'].value = block['不可開始'] || '';
-      form['不可終了'].value = block['不可終了'] || '';
-      form['場所'].value = block['場所'] || '';
-    }
+  document.getElementById('block-form-title').textContent = '編集';
+  const form = document.getElementById('block-form');
+  
+  form['_row'].value = block._row || '';
+  
+  // 日付を yyyy-MM-dd 形式に変換
+  let dateVal = block['日付'] || '';
+  if (dateVal.includes('/')) {
+    dateVal = dateVal.replace(/\//g, '-');
+  }
+  form['日付'].value = dateVal;
+  form['終了日'].value = '';  // 編集時は終了日をクリア
+  
+  form['不可開始'].value = block['不可開始'] || '';
+  form['不可終了'].value = block['不可終了'] || '';
+  form['場所'].value = block['場所'] || '';
+}
     
     function clearBlockForm() {
       document.getElementById('block-form').reset();
@@ -3014,20 +3030,27 @@ function filterStudents() {
       showMessage('block-message', '', '');
     }
     
-    function saveBlock() {
+    // ========== 日付範囲展開対応の保存関数 ==========
+async function saveBlock() {
   const form = document.getElementById('block-form');
-  const data = {
-    _row: form['_row'].value,
-    日付: form['日付'].value,
-    不可開始: form['不可開始'].value,
-    不可終了: form['不可終了'].value,
-    場所: form['場所'].value
-  };
+  const startDateStr = form['日付'].value;
+  const endDateStr = form['終了日'].value;
+  const rowNum = form['_row'].value;
   
-  showMessage('block-message', '保存中...', 'info');
-  
-  apiPost('saveBlock', { data })
-    .then(result => {
+  // 編集モード（既存レコード）の場合は単一保存
+  if (rowNum) {
+    const data = {
+      _row: rowNum,
+      日付: startDateStr,
+      不可開始: form['不可開始'].value,
+      不可終了: form['不可終了'].value,
+      場所: form['場所'].value
+    };
+    
+    showMessage('block-message', '保存中...', 'info');
+    
+    try {
+      const result = await apiPost('saveBlock', { data });
       if (result && result.ok) {
         showMessage('block-message', '保存しました', 'success');
         loadBlocks();
@@ -3035,10 +3058,92 @@ function filterStudents() {
       } else {
         showMessage('block-message', 'エラー: ' + (result.error || '不明'), 'error');
       }
-    })
-    .catch(err => {
+    } catch (err) {
       showMessage('block-message', 'エラー: ' + err.message, 'error');
-    });
+    }
+    return;
+  }
+  
+  // 新規登録モード
+  if (!startDateStr) {
+    showMessage('block-message', '開始日を入力してください', 'error');
+    return;
+  }
+  
+  // 日付範囲を計算
+  const dates = [];
+  const startDate = new Date(startDateStr);
+  
+  if (endDateStr) {
+    const endDate = new Date(endDateStr);
+    
+    if (endDate < startDate) {
+      showMessage('block-message', '終了日は開始日より後にしてください', 'error');
+      return;
+    }
+    
+    const dayDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    if (dayDiff > 60) {
+      showMessage('block-message', '期間は最大60日までです', 'error');
+      return;
+    }
+    
+    // 範囲内の全日付を生成
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      dates.push(new Date(d));
+    }
+  } else {
+    dates.push(startDate);
+  }
+  
+  // 複数日の場合はプログレス表示
+  if (dates.length > 1) {
+    showMessage('block-message', `${dates.length}日分を登録中... (0/${dates.length})`, 'info');
+  } else {
+    showMessage('block-message', '保存中...', 'info');
+  }
+  
+  // 順次保存
+  let successCount = 0;
+  let errorCount = 0;
+  
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i];
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    
+    const data = {
+      日付: dateStr,
+      不可開始: form['不可開始'].value,
+      不可終了: form['不可終了'].value,
+      場所: form['場所'].value
+    };
+    
+    try {
+      const result = await apiPost('saveBlock', { data });
+      if (result && result.ok) {
+        successCount++;
+      } else {
+        errorCount++;
+      }
+    } catch (err) {
+      errorCount++;
+    }
+    
+    // プログレス更新
+    if (dates.length > 1) {
+      showMessage('block-message', `${dates.length}日分を登録中... (${i + 1}/${dates.length})`, 'info');
+    }
+  }
+  
+  // 完了メッセージ
+  if (errorCount === 0) {
+    showMessage('block-message', `${successCount}日分を登録しました`, 'success');
+  } else {
+    showMessage('block-message', `${successCount}日成功 / ${errorCount}日失敗`, 'error');
+  }
+  
+  loadBlocks();
+  clearBlockForm();
 }
     
     function deleteBlock() {
