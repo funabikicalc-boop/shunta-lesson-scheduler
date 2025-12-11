@@ -2085,6 +2085,13 @@
 }
 
 /* 生徒モーダル：曜日時間選択を1行に */
+/* 生徒モーダル：曜日時間選択を1行に（PC・スマホ共通） */
+#student-modal .weekday-grid-new {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 6px !important;
+}
+
 #student-modal .weekday-row {
   display: flex !important;
   flex-direction: row !important;
@@ -2092,25 +2099,43 @@
   align-items: center !important;
   gap: 2px !important;
   padding: 6px 8px !important;
+  background: var(--gray-100) !important;
+  border-radius: 6px !important;
 }
 
 #student-modal .weekday-label {
   min-width: 20px !important;
   font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: var(--primary) !important;
 }
 
 #student-modal .weekday-row select {
-  width: 42px !important;
+  width: 44px !important;
   padding: 4px 2px !important;
-  font-size: 0.75rem !important;
+  font-size: 0.8rem !important;
   text-align: center;
+  border: 1px solid var(--gray-300) !important;
+  border-radius: 4px !important;
 }
 
 #student-modal .weekday-row span:not(.weekday-label) {
-  font-size: 0.7rem !important;
+  font-size: 0.75rem !important;
   color: var(--gray-500);
 }
 
+/* スマホ：1列表示 */
+@media (max-width: 768px) {
+  #student-modal .weekday-grid-new {
+    grid-template-columns: 1fr !important;
+  }
+  
+  #student-modal .weekday-row select {
+    width: 40px !important;
+    padding: 6px 2px !important;
+    font-size: 0.85rem !important;
+  }
+}
 /* スマホでも1行維持 */
 @media (max-width: 768px) {
   #student-modal .weekday-grid-new {
