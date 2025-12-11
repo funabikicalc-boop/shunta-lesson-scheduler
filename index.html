@@ -1941,6 +1941,23 @@
     overflow-y: auto;
   }
 }
+
+@media (min-width: 769px) {
+  .student-grid {
+    align-items: stretch !important;
+  }
+  .student-grid > .card:first-child,
+  .student-grid > .card:last-child {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .student-grid > .card:first-child .student-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+}    
     
   </style>
     
