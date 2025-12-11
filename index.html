@@ -1327,12 +1327,11 @@
       }
       
       /* 生徒管理・講師不可の2カラムを1カラムに */
-      #tab-students > div,
-      #tab-blocks > div {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 16px !important;
-      }
+#tab-students .student-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
       
       /* フォームグリッド */
       .form-grid {
@@ -1979,17 +1978,18 @@
 }
 
 /* ========== PC版：生徒管理フォームをコンパクト化 ========== */
+/* ========== PC版：生徒管理フォームを確実に2カラム＆コンパクト化 ========== */
 @media (min-width: 769px) {
   /* 2カラムレイアウトを強制 */
-  .student-grid {
+  #tab-students .student-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 20px !important;
     align-items: start !important;
   }
   
-  /* 右側フォームの高さ制限 */
-  .student-grid > .card:last-child {
+  /* 右側フォームカード */
+  #tab-students .student-grid > .card:last-child {
     max-height: calc(100vh - 180px);
     overflow-y: auto;
   }
@@ -2017,7 +2017,7 @@
   }
   
   /* 曜日を4列グリッドに */
-  .weekday-grid-new {
+  #student-form .weekday-grid-new {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 6px !important;
@@ -2025,7 +2025,7 @@
     margin-top: 8px !important;
   }
   
-  .weekday-grid-new .weekday-row {
+  #student-form .weekday-grid-new .weekday-row {
     flex-direction: column !important;
     align-items: flex-start !important;
     padding: 6px !important;
@@ -2035,27 +2035,27 @@
     gap: 4px !important;
   }
   
-  .weekday-grid-new .weekday-label {
+  #student-form .weekday-grid-new .weekday-label {
     font-size: 0.85rem !important;
     margin-bottom: 2px !important;
   }
   
-  .weekday-grid-new .time-select-group {
+  #student-form .weekday-grid-new .time-select-group {
     flex-wrap: wrap !important;
     gap: 2px !important;
   }
   
-  .weekday-grid-new .time-select {
+  #student-form .weekday-grid-new .time-select {
     padding: 3px 4px !important;
     font-size: 0.8rem !important;
   }
   
-  .weekday-grid-new .hour-select,
-  .weekday-grid-new .minute-select {
+  #student-form .weekday-grid-new .hour-select,
+  #student-form .weekday-grid-new .minute-select {
     width: 45px !important;
   }
   
-  .weekday-grid-new .time-select-group span {
+  #student-form .weekday-grid-new .time-select-group span {
     font-size: 0.75rem !important;
   }
   
@@ -2072,6 +2072,7 @@
   /* ボタングループ */
   #student-form .btn-group {
     margin-top: 10px !important;
+    flex-direction: row !important;
   }
   
   #student-form .btn-group .btn {
@@ -2079,6 +2080,7 @@
     font-size: 0.85rem !important;
     min-height: auto !important;
     width: auto !important;
+    flex: 0 0 auto !important;
   }
 }
     
