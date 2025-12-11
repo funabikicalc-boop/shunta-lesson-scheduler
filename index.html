@@ -2233,195 +2233,34 @@
         </div>
       </div>
       
-      <!-- 生徒管理 -->
+     <!-- 生徒管理 -->
       <div id="tab-students" class="tab-panel">
-        <div class="student-grid">
-          <!-- 左：一覧 -->
-          <div class="card student-list-card">
-            <div class="card-header">
-  <h3 class="card-title">
-    <span class="material-icons">list</span>
-    生徒一覧
-  </h3>
-  <button class="btn btn-secondary" onclick="loadStudents()">
-    <span class="material-icons">refresh</span>
-    更新
-  </button>
-</div>
-<div class="search-box">
-  <span class="material-icons">search</span>
-  <input type="text" id="student-search" class="form-input" placeholder="名前で検索..." oninput="filterStudents()">
-</div>
-<div id="student-list" class="list-container student-list-scroll">
-              <div class="loading">
-                <div class="spinner"></div>
-                読み込み中...
-              </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="material-icons">list</span>
+              生徒一覧
+            </h3>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-primary" onclick="openStudentModal(null)">
+                <span class="material-icons">person_add</span>
+                新規登録
+              </button>
+              <button class="btn btn-secondary" onclick="loadStudents()">
+                <span class="material-icons">refresh</span>
+                更新
+              </button>
             </div>
           </div>
-          
-          <!-- 右：フォーム -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">
-                <span class="material-icons">edit</span>
-                <span id="student-form-title">新規登録</span>
-              </h3>
+          <div class="search-box">
+            <span class="material-icons">search</span>
+            <input type="text" id="student-search" class="form-input" placeholder="名前で検索..." oninput="filterStudents()">
+          </div>
+          <div id="student-list" class="list-container" style="max-height:calc(100vh - 350px);">
+            <div class="loading">
+              <div class="spinner"></div>
+              読み込み中...
             </div>
-            <form id="student-form" onsubmit="event.preventDefault(); saveStudent();">
-              <!-- 生徒番号は非表示（自動採番） -->
-              <input type="hidden" name="生徒番号">
-              
-              <div class="form-grid">
-                <div class="form-group" id="student-id-display" style="display:none;">
-                  <label class="form-label">生徒番号</label>
-                  <div class="form-input" style="background:var(--gray-100);color:var(--gray-600);" id="student-id-value">-</div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">氏名 *</label>
-                  <input type="text" name="氏名" class="form-input" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">月コマ数</label>
-                  <input type="number" name="月コマ数" class="form-input" min="0">
-                </div>
-                  <div class="form-group">
-  <label class="form-label">レッスン分</label>
-  <select name="レッスン分" class="form-select">
-    <option value="">-- 選択 --</option>
-    <option value="30">30分</option>
-    <option value="40">40分</option>
-    <option value="45">45分</option>
-    <option value="60">60分</option>
-    <option value="120">120分</option>
-  </select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">第1希望場所</label>
-                  <select name="第1希望場所" class="form-select place-select"></select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">第2希望場所</label>
-                  <select name="第2希望場所" class="form-select place-select"></select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">第3希望場所</label>
-                  <select name="第3希望場所" class="form-select place-select"></select>
-                </div>
-                <div class="form-group">
-                  <label class="checkbox-wrapper">
-                    <input type="checkbox" name="月内除外">
-                    <span>今月は除外</span>
-                  </label>
-                </div>
-              </div>
-              
-              <div style="margin-top:20px;">
-                <label class="form-label">曜日ごとの希望時間帯（開始〜終了）</label>
-                <div class="weekday-grid-new">
-                  <div class="weekday-row">
-                    <span class="weekday-label">月</span>
-                    <div class="time-select-group">
-                      <select name="月_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="月_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="月_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="月_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">火</span>
-                    <div class="time-select-group">
-                      <select name="火_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="火_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="火_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="火_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">水</span>
-                    <div class="time-select-group">
-                      <select name="水_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="水_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="水_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="水_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">木</span>
-                    <div class="time-select-group">
-                      <select name="木_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="木_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="木_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="木_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">金</span>
-                    <div class="time-select-group">
-                      <select name="金_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="金_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="金_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="金_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">土</span>
-                    <div class="time-select-group">
-                      <select name="土_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="土_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="土_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="土_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                  <div class="weekday-row">
-                    <span class="weekday-label">日</span>
-                    <div class="time-select-group">
-                      <select name="日_開始_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="日_開始_m" class="time-select minute-select"><option value="">--</option></select>
-                      <span>〜</span>
-                      <select name="日_終了_h" class="time-select hour-select"><option value="">--</option></select>
-                      <span>:</span>
-                      <select name="日_終了_m" class="time-select minute-select"><option value="">--</option></select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="btn-group" style="margin-top:20px;">
-                <button type="submit" class="btn btn-primary">
-                  <span class="material-icons">save</span>
-                  保存
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="clearStudentForm()">
-                  <span class="material-icons">clear</span>
-                  クリア
-                </button>
-                <button type="button" class="btn btn-danger" onclick="deleteStudent()">
-                  <span class="material-icons">delete</span>
-                  削除
-                </button>
-              </div>
-            </form>
-            <div id="student-message"></div>
           </div>
         </div>
       </div>
@@ -2472,14 +2311,14 @@
               <input type="hidden" name="_row">
               <div class="form-grid">
                 <div class="form-group">
-                <label class="form-label">開始日 *</label>
-                <input type="date" name="日付" class="form-input" required>
+                  <label class="form-label">開始日 *</label>
+                  <input type="date" name="日付" class="form-input" required>
                 </div>
                 <div class="form-group">
-  <label class="form-label">終了日（連続登録用）</label>
-  <input type="date" name="終了日" class="form-input">
-  <span class="date-range-hint">※ 空欄なら開始日のみ登録</span>
-</div>
+                  <label class="form-label">終了日（連続登録用）</label>
+                  <input type="date" name="終了日" class="form-input">
+                  <span class="date-range-hint">※ 空欄なら開始日のみ登録</span>
+                </div>
                 <div class="form-group">
                   <label class="form-label">場所（空欄＝全場所）</label>
                   <select name="場所" class="form-select place-select"></select>
@@ -2918,7 +2757,10 @@ function loadPlaces() {
 }
     
     // ========== 生徒管理 ==========
-   function loadStudents() {
+   // ========== 生徒管理（モーダル版） ==========
+let allStudents = [];
+
+function loadStudents() {
   const container = document.getElementById('student-list');
   container.innerHTML = '<div class="loading"><div class="spinner"></div>読み込み中...</div>';
   
@@ -2927,12 +2769,11 @@ function loadPlaces() {
       const students = (result && result.students) || [];
       document.getElementById('student-search').value = '';
       
-      // ★ 第1希望場所でソート（場所ごとにまとめる）
+      // 第1希望場所でソート
       students.sort((a, b) => {
-        const placeA = a['第1希望場所'] || 'zzz'; // 未設定は最後に
+        const placeA = a['第1希望場所'] || 'zzz';
         const placeB = b['第1希望場所'] || 'zzz';
         if (placeA !== placeB) return placeA.localeCompare(placeB, 'ja');
-        // 同じ場所内では名前順
         return (a['氏名'] || '').localeCompare(b['氏名'] || '', 'ja');
       });
       
@@ -2950,7 +2791,6 @@ function loadPlaces() {
     });
 }
 
-// 生徒リスト描画を関数化
 function renderStudentList(students) {
   const container = document.getElementById('student-list');
   
@@ -2959,23 +2799,20 @@ function renderStudentList(students) {
     return;
   }
   
-  // ★ 場所ごとの色を定義（濃い色と薄い色）
   const placeColors = {
-    '吹田': { bg: '#3B82F6', light: '#DBEAFE', text: 'white' },      // 青
-    '関大前': { bg: '#10B981', light: '#D1FAE5', text: 'white' },    // 緑
-    '長堀': { bg: '#F59E0B', light: '#FEF3C7', text: 'white' },      // オレンジ
-    '未設定': { bg: '#6B7280', light: '#F3F4F6', text: 'white' }     // グレー
+    '吹田': { bg: '#3B82F6', light: '#DBEAFE', text: 'white' },
+    '関大前': { bg: '#10B981', light: '#D1FAE5', text: 'white' },
+    '長堀': { bg: '#F59E0B', light: '#FEF3C7', text: 'white' },
+    '未設定': { bg: '#6B7280', light: '#F3F4F6', text: 'white' }
   };
   
-  // 場所ごとにグループ化して表示
   let html = '';
   let currentPlace = null;
   
   for (const s of students) {
     const place = s['第1希望場所'] || '未設定';
-    const color = placeColors[place] || { bg: '#8B5CF6', light: '#EDE9FE', text: 'white' }; // デフォルトは紫
+    const color = placeColors[place] || { bg: '#8B5CF6', light: '#EDE9FE', text: 'white' };
     
-    // 場所が変わったらヘッダーを追加
     if (place !== currentPlace) {
       currentPlace = place;
       html += `
@@ -2998,9 +2835,8 @@ function renderStudentList(students) {
       `;
     }
     
-    // ★ 各生徒アイテムに場所の色を適用
     html += `
-      <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'
+      <div class="list-item" onclick='openStudentModal(${JSON.stringify(s).replace(/'/g, "\\'")})'
            style="background: ${color.light}; border-left: 4px solid ${color.bg};">
         <div class="list-item-icon" style="background: ${color.bg};">${(s['氏名'] || '?')[0]}</div>
         <div class="list-item-content">
@@ -3009,6 +2845,7 @@ function renderStudentList(students) {
             ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分
           </div>
         </div>
+        <span class="material-icons" style="color:var(--gray-400);">chevron_right</span>
       </div>
     `;
   }
@@ -3016,10 +2853,8 @@ function renderStudentList(students) {
   container.innerHTML = html;
 }
 
-
 function filterStudents() {
   const query = document.getElementById('student-search').value.toLowerCase();
-  const container = document.getElementById('student-list');
   
   if (!allStudents.length) return;
   
@@ -3027,96 +2862,87 @@ function filterStudents() {
     ? allStudents.filter(s => (s['氏名'] || '').toLowerCase().includes(query))
     : allStudents;
   
-  if (filtered.length === 0) {
-    container.innerHTML = '<div class="empty-state"><span class="material-icons">search_off</span><p>該当する生徒がいません</p></div>';
-    return;
+  renderStudentList(filtered);
+}
+
+// モーダルを開く
+function openStudentModal(student) {
+  const form = document.getElementById('student-form');
+  form.reset();
+  
+  // 時間プルダウンの再初期化
+  initTimeSelects();
+  // 場所プルダウンの再初期化
+  loadPlacesForModal();
+  
+  if (student) {
+    // 編集モード
+    document.getElementById('student-modal-title').textContent = '生徒編集';
+    document.getElementById('btn-delete-student').style.display = 'block';
+    
+    form['生徒番号'].value = student['生徒番号'] || '';
+    
+    // 通常フィールド
+    for (const el of form.elements) {
+      if (!el.name || el.name === '生徒番号') continue;
+      if (el.name.endsWith('_h') || el.name.endsWith('_m')) continue;
+      
+      if (el.type === 'checkbox') {
+        el.checked = String(student[el.name]).toUpperCase() === 'TRUE';
+      } else {
+        el.value = student[el.name] || '';
+      }
+    }
+    
+    // 時間フィールドを分解してセット
+    const days = ['月', '火', '水', '木', '金', '土', '日'];
+    days.forEach(day => {
+      ['開始', '終了'].forEach(type => {
+        const timeVal = student[`${day}_${type}`] || '';
+        const hSelect = form[`${day}_${type}_h`];
+        const mSelect = form[`${day}_${type}_m`];
+        
+        if (timeVal && timeVal.includes(':')) {
+          const [h, m] = timeVal.split(':');
+          hSelect.value = parseInt(h, 10);
+          const minutes = parseInt(m, 10);
+          const roundedMinutes = Math.round(minutes / 5) * 5;
+          mSelect.value = roundedMinutes >= 60 ? 55 : roundedMinutes;
+        }
+      });
+    });
+  } else {
+    // 新規登録モード
+    document.getElementById('student-modal-title').textContent = '新規登録';
+    document.getElementById('btn-delete-student').style.display = 'none';
   }
   
-  container.innerHTML = filtered.map(s => `
-    <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'> 
-      <div class="list-item-icon">${(s['氏名'] || '?')[0]}</div>
-      <div class="list-item-content">
-        <div class="list-item-title">${s['氏名'] || '名前なし'}</div>
-        <div class="list-item-subtitle">
-          ${s['第1希望場所'] || '-'} ｜ ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分
-        </div>
-      </div>
-    </div>
-  `).join('');
+  showMessage('student-message', '', '');
+  document.getElementById('student-modal').classList.add('active');
 }
-    
-    function selectStudent(student) {
-      document.getElementById('student-form-title').textContent = '編集';
-      const form = document.getElementById('student-form');
-      
-      // 生徒番号表示
-      document.getElementById('student-id-display').style.display = 'block';
-      document.getElementById('student-id-value').textContent = student['生徒番号'] || '-';
-      form['生徒番号'].value = student['生徒番号'] || '';
-      
-      // リストのハイライト
-      document.querySelectorAll('#student-list .list-item').forEach(el => {
-        el.classList.remove('selected');
-        if (el.querySelector('.list-item-title').textContent === student['氏名']) {
-          el.classList.add('selected');
-        }
+
+// モーダルを閉じる
+function closeStudentModal() {
+  document.getElementById('student-modal').classList.remove('active');
+}
+
+// 場所プルダウンをモーダル内で再読み込み
+function loadPlacesForModal() {
+  apiGet('getPlaces')
+    .then(result => {
+      const places = (result && result.places) || [];
+      const selects = document.querySelectorAll('#student-modal .place-select');
+      selects.forEach(sel => {
+        sel.innerHTML = '<option value="">-- 選択 --</option>' + 
+          places.map(p => `<option value="${p}">${p}</option>`).join('');
       });
-      
-      // 通常フィールド
-      const timeFields = ['月_開始', '月_終了', '火_開始', '火_終了', '水_開始', '水_終了', 
-                          '木_開始', '木_終了', '金_開始', '金_終了', '土_開始', '土_終了', '日_開始', '日_終了'];
-      
-      for (const el of form.elements) {
-        if (!el.name || el.name === '生徒番号') continue;
-        
-        // 時間フィールドは別処理
-        if (el.name.endsWith('_h') || el.name.endsWith('_m')) continue;
-        
-        if (el.type === 'checkbox') {
-          el.checked = String(student[el.name]).toUpperCase() === 'TRUE';
-        } else {
-          el.value = student[el.name] || '';
-        }
-      }
-      
-      // 時間フィールドを分解してセット
-      const days = ['月', '火', '水', '木', '金', '土', '日'];
-      days.forEach(day => {
-        ['開始', '終了'].forEach(type => {
-          const timeVal = student[`${day}_${type}`] || '';
-          const hSelect = form[`${day}_${type}_h`];
-          const mSelect = form[`${day}_${type}_m`];
-          
-          if (timeVal && timeVal.includes(':')) {
-            const [h, m] = timeVal.split(':');
-            hSelect.value = parseInt(h, 10);
-            // 分は5分刻みに丸める
-            const minutes = parseInt(m, 10);
-            const roundedMinutes = Math.round(minutes / 5) * 5;
-            mSelect.value = roundedMinutes >= 60 ? 55 : roundedMinutes;
-          } else {
-            hSelect.value = '';
-            mSelect.value = '';
-          }
-        });
-      });
-    }
-    
-    function clearStudentForm() {
-      document.getElementById('student-form').reset();
-      document.getElementById('student-form-title').textContent = '新規登録';
-      document.getElementById('student-id-display').style.display = 'none';
-      document.getElementById('student-id-value').textContent = '-';
-      document.querySelector('#student-form input[name="生徒番号"]').value = '';
-      document.querySelectorAll('#student-list .list-item').forEach(el => el.classList.remove('selected'));
-      showMessage('student-message', '', '');
-    }
-    
-    function saveStudent() {
+    });
+}
+
+function saveStudent() {
   const form = document.getElementById('student-form');
   const data = {};
   
-  // 通常フィールド
   for (const el of form.elements) {
     if (!el.name) continue;
     if (el.name.endsWith('_h') || el.name.endsWith('_m')) continue;
@@ -3128,7 +2954,6 @@ function filterStudents() {
     }
   }
   
-  // 時間フィールドを結合
   const days = ['月', '火', '水', '木', '金', '土', '日'];
   days.forEach(day => {
     ['開始', '終了'].forEach(type => {
@@ -3147,10 +2972,8 @@ function filterStudents() {
   apiPost('saveStudent', { data })
     .then(result => {
       if (result && result.ok) {
-        const msg = result.isNew ? `保存しました（生徒番号: ${result.studentId}）` : '保存しました';
-        showMessage('student-message', msg, 'success');
+        closeStudentModal();
         loadStudents();
-        clearStudentForm();
       } else {
         showMessage('student-message', 'エラー: ' + (result.error || '不明'), 'error');
       }
@@ -3159,11 +2982,11 @@ function filterStudents() {
       showMessage('student-message', 'エラー: ' + err.message, 'error');
     });
 }
-    
-    function deleteStudent() {
+
+function deleteStudent() {
   const id = document.querySelector('#student-form input[name="生徒番号"]').value;
   if (!id) {
-    showMessage('student-message', '削除する生徒を一覧から選択してください', 'error');
+    showMessage('student-message', '削除する生徒を選択してください', 'error');
     return;
   }
   
@@ -3173,9 +2996,8 @@ function filterStudents() {
   apiPost('deleteStudent', { studentId: id })
     .then(result => {
       if (result && result.ok) {
-        showMessage('student-message', '削除しました', 'success');
+        closeStudentModal();
         loadStudents();
-        clearStudentForm();
       } else {
         showMessage('student-message', 'エラー: ' + (result.error || '不明'), 'error');
       }
@@ -3184,7 +3006,6 @@ function filterStudents() {
       showMessage('student-message', 'エラー: ' + err.message, 'error');
     });
 }
-    
     function loadBlocks() {
   const year = parseInt(document.getElementById('block-year').value);
   const month = parseInt(document.getElementById('block-month').value);
@@ -4443,5 +4264,156 @@ function deleteSelectedTimelines() {
       </div>
     </div>
   </div>
+<!-- 生徒編集モーダル -->
+  <div id="student-modal" class="modal-overlay" onclick="if(event.target===this)closeStudentModal()">
+    <div class="modal" style="max-width:600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span class="material-icons">person</span>
+          <span id="student-modal-title">新規登録</span>
+        </h3>
+        <button class="modal-close" onclick="closeStudentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="student-form" onsubmit="event.preventDefault(); saveStudent();">
+          <input type="hidden" name="生徒番号">
+          
+          <!-- 基本情報 -->
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;">
+            <div class="form-group">
+              <label class="form-label">氏名 *</label>
+              <input type="text" name="氏名" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">月コマ数</label>
+              <input type="number" name="月コマ数" class="form-input" min="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">レッスン分</label>
+              <select name="レッスン分" class="form-select">
+                <option value="">-- 選択 --</option>
+                <option value="30">30分</option>
+                <option value="40">40分</option>
+                <option value="45">45分</option>
+                <option value="60">60分</option>
+                <option value="120">120分</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">第1希望場所</label>
+              <select name="第1希望場所" class="form-select place-select"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">第2希望場所</label>
+              <select name="第2希望場所" class="form-select place-select"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">第3希望場所</label>
+              <select name="第3希望場所" class="form-select place-select"></select>
+            </div>
+          </div>
+          
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" name="月内除外">
+              <span>今月は除外</span>
+            </label>
+          </div>
+          
+          <!-- 曜日ごとの希望時間帯 -->
+          <div style="margin-bottom:16px;">
+            <label class="form-label" style="margin-bottom:8px;display:block;">曜日ごとの希望時間帯（開始〜終了）</label>
+            <div class="weekday-grid-new" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">月</span>
+                <select name="月_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="月_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="月_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="月_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">火</span>
+                <select name="火_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="火_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="火_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="火_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">水</span>
+                <select name="水_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="水_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="水_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="水_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">木</span>
+                <select name="木_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="木_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="木_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="木_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">金</span>
+                <select name="金_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="金_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="金_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="金_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">土</span>
+                <select name="土_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="土_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="土_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="土_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
+                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">日</span>
+                <select name="日_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="日_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>〜</span>
+                <select name="日_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+                <span>:</span>
+                <select name="日_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
+              </div>
+            </div>
+          </div>
+          
+          <div id="student-message"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="btn-delete-student" onclick="deleteStudent()" style="margin-right:auto;">
+          <span class="material-icons">delete</span>
+          削除
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="closeStudentModal()">キャンセル</button>
+        <button type="button" class="btn btn-primary" onclick="saveStudent()">
+          <span class="material-icons">save</span>
+          保存
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
 </body>
 </html>
