@@ -2731,9 +2731,16 @@ async function apiPost(action, data = {}) {
     
     function initApp() {
       // 年月の初期値
-      const now = new Date();
-      document.getElementById('schedule-year').value = now.getFullYear();
-      document.getElementById('schedule-month').value = now.getMonth() + 1;
+const now = new Date();
+let nextMonth = now.getMonth() + 2; // getMonth()は0始まりなので+2で翌月
+let nextYear = now.getFullYear();
+if (nextMonth > 12) {
+  nextMonth = 1;
+  nextYear++;
+}
+
+document.getElementById('schedule-year').value = nextYear;
+document.getElementById('schedule-month').value = nextMonth;
       
       // タブ切替
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -2753,12 +2760,12 @@ async function apiPost(action, data = {}) {
       loadSettings();
       
       // 時系列ビューの年月も初期化
-      document.getElementById('timeline-year').value = now.getFullYear();
-      document.getElementById('timeline-month').value = now.getMonth() + 1;
+     document.getElementById('timeline-year').value = nextYear;
+document.getElementById('timeline-month').value = nextMonth;
       
       // 講師不可日程の年月も初期化
-      document.getElementById('block-year').value = now.getFullYear();
-      document.getElementById('block-month').value = now.getMonth() + 1;
+document.getElementById('block-year').value = nextYear;
+document.getElementById('block-month').value = nextMonth;
       
       // 下書きがあれば読み込み
       loadDraft();
