@@ -2781,7 +2781,6 @@ function loadPlaces() {
     });
 }
 
-// ★ 生徒リスト描画を関数化
 // 生徒リスト描画を関数化
 function renderStudentList(students) {
   const container = document.getElementById('student-list');
@@ -2791,12 +2790,12 @@ function renderStudentList(students) {
     return;
   }
   
-  // ★ 場所ごとの色を定義
+  // ★ 場所ごとの色を定義（濃い色と薄い色）
   const placeColors = {
-    '吹田': { bg: '#3B82F6', text: 'white' },      // 青
-    '関大前': { bg: '#10B981', text: 'white' },    // 緑
-    '長堀': { bg: '#F59E0B', text: 'white' },      // オレンジ
-    '未設定': { bg: '#6B7280', text: 'white' }     // グレー
+    '吹田': { bg: '#3B82F6', light: '#DBEAFE', text: 'white' },      // 青
+    '関大前': { bg: '#10B981', light: '#D1FAE5', text: 'white' },    // 緑
+    '長堀': { bg: '#F59E0B', light: '#FEF3C7', text: 'white' },      // オレンジ
+    '未設定': { bg: '#6B7280', light: '#F3F4F6', text: 'white' }     // グレー
   };
   
   // 場所ごとにグループ化して表示
@@ -2805,11 +2804,11 @@ function renderStudentList(students) {
   
   for (const s of students) {
     const place = s['第1希望場所'] || '未設定';
+    const color = placeColors[place] || { bg: '#8B5CF6', light: '#EDE9FE', text: 'white' }; // デフォルトは紫
     
     // 場所が変わったらヘッダーを追加
     if (place !== currentPlace) {
       currentPlace = place;
-      const color = placeColors[place] || { bg: '#8B5CF6', text: 'white' }; // デフォルトは紫
       html += `
         <div style="
           padding: 10px 14px;
@@ -2830,9 +2829,11 @@ function renderStudentList(students) {
       `;
     }
     
+    // ★ 各生徒アイテムに場所の色を適用
     html += `
-      <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'>
-        <div class="list-item-icon">${(s['氏名'] || '?')[0]}</div>
+      <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'
+           style="background: ${color.light}; border-left: 4px solid ${color.bg};">
+        <div class="list-item-icon" style="background: ${color.bg};">${(s['氏名'] || '?')[0]}</div>
         <div class="list-item-content">
           <div class="list-item-title">${s['氏名'] || '名前なし'}</div>
           <div class="list-item-subtitle">
