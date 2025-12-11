@@ -1957,7 +1957,27 @@
     flex: 1;
     overflow-y: auto;
   }
-}    
+}  
+/* PC版：曜日の時間帯を2列に */
+@media (min-width: 769px) {
+  .weekday-grid-new {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+  .weekday-grid-new .weekday-row {
+    margin-bottom: 0;
+    padding: 8px 0;
+  }
+  /* フォーム全体をコンパクトに */
+  .student-grid > .card:last-child .form-group {
+    margin-bottom: 12px;
+  }
+  .student-grid > .card:last-child .form-row {
+    gap: 12px;
+  }
+}
+    
     
   </style>
     
@@ -2162,7 +2182,17 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label">レッスン分</label>
-                  <input type="number" name="レッスン分" class="form-input" min="5" step="5">
+                  <div class="form-group">
+  <label class="form-label">レッスン分</label>
+  <select name="レッスン分" class="form-select">
+    <option value="">-- 選択 --</option>
+    <option value="30">30分</option>
+    <option value="40">40分</option>
+    <option value="45">45分</option>
+    <option value="60">60分</option>
+    <option value="120">120分</option>
+  </select>
+</div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">第1希望場所</label>
