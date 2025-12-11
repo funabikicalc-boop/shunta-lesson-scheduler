@@ -2757,33 +2757,68 @@ function loadPlaces() {
   apiGet('getStudents')
     .then(result => {
       const students = (result && result.students) || [];
-      allStudents = students; // ★ 検索用に保持
-      document.getElementById('student-search').value = ''; // ★ 検索欄クリア
+      document.getElementById('student-search').value = '';
+      
+      // ★ 第1希望場所でソート（場所ごとにまとめる）
+      students.sort((a, b) => {
+        const placeA = a['第1希望場所'] || 'zzz'; // 未設定は最後に
+        const placeB = b['第1希望場所'] || 'zzz';
+        if (placeA !== placeB) return placeA.localeCompare(placeB, 'ja');
+        // 同じ場所内では名前順
+        return (a['氏名'] || '').localeCompare(b['氏名'] || '', 'ja');
+      });
+      
+      allStudents = students;
       
       if (students.length === 0) {
         container.innerHTML = '<div class="empty-state"><span class="material-icons">person_off</span><p>生徒が登録されていません</p></div>';
         return;
       }
       
-      container.innerHTML = students.map(s => `
-        <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'>
-          <div class="list-item-icon">${(s['氏名'] || '?')[0]}</div>
-          <div class="list-item-content">
-            <div class="list-item-title">${s['氏名'] || '名前なし'}</div>
-            <div class="list-item-subtitle">
-              ${s['第1希望場所'] || '-'} ｜ ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分
-            </div>
-          </div>
-        </div>
-      `).join('');
+      renderStudentList(students);
     })
     .catch(err => {
       container.innerHTML = `<div class="message message-error">読み込みエラー: ${err.message}</div>`;
     });
 }
 
-    // 生徒検索フィルター
-let allStudents = []; // 全生徒データを保持
+// ★ 生徒リスト描画を関数化
+function renderStudentList(students) {
+  const container = document.getElementById('student-list');
+  
+  if (students.length === 0) {
+    container.innerHTML = '<div class="empty-state"><span class="material-icons">search_off</span><p>該当する生徒がいません</p></div>';
+    return;
+  }
+  
+  // 場所ごとにグループ化して表示
+  let html = '';
+  let currentPlace = null;
+  
+  for (const s of students) {
+    const place = s['第1希望場所'] || '未設定';
+    
+    // 場所が変わったらヘッダーを追加
+    if (place !== currentPlace) {
+      currentPlace = place;
+      html += `<div style="padding:8px 12px;background:var(--primary);color:white;font-weight:600;font-size:0.85rem;margin-top:${html ? '12px' : '0'};border-radius:6px;">📍 ${place}</div>`;
+    }
+    
+    html += `
+      <div class="list-item" onclick='selectStudent(${JSON.stringify(s).replace(/'/g, "\\'")})'>
+        <div class="list-item-icon">${(s['氏名'] || '?')[0]}</div>
+        <div class="list-item-content">
+          <div class="list-item-title">${s['氏名'] || '名前なし'}</div>
+          <div class="list-item-subtitle">
+            ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  container.innerHTML = html;
+}
 
 function filterStudents() {
   const query = document.getElementById('student-search').value.toLowerCase();
