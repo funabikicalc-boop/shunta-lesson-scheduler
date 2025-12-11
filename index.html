@@ -2083,6 +2083,52 @@
     flex: 0 0 auto !important;
   }
 }
+
+/* 生徒モーダル：曜日時間選択を1行に */
+#student-modal .weekday-row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 6px 8px !important;
+}
+
+#student-modal .weekday-label {
+  min-width: 20px !important;
+  font-size: 0.85rem !important;
+}
+
+#student-modal .weekday-row select {
+  width: 42px !important;
+  padding: 4px 2px !important;
+  font-size: 0.75rem !important;
+  text-align: center;
+}
+
+#student-modal .weekday-row span:not(.weekday-label) {
+  font-size: 0.7rem !important;
+  color: var(--gray-500);
+}
+
+/* スマホでも1行維持 */
+@media (max-width: 768px) {
+  #student-modal .weekday-grid-new {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  
+  #student-modal .weekday-row {
+    flex-wrap: nowrap !important;
+    justify-content: space-between;
+  }
+  
+  #student-modal .weekday-row select {
+    width: 38px !important;
+    padding: 6px 1px !important;
+    font-size: 0.8rem !important;
+  }
+}
     
   </style>
     
