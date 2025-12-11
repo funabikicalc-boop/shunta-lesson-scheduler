@@ -4392,81 +4392,81 @@ function deleteSelectedTimelines() {
           </div>
           
           <!-- 曜日ごとの希望時間帯 -->
-          <div style="margin-bottom:16px;">
-            <label class="form-label" style="margin-bottom:8px;display:block;">曜日ごとの希望時間帯（開始〜終了）</label>
-            <div class="weekday-grid-new" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">月</span>
-                <select name="月_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="月_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="月_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="月_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">火</span>
-                <select name="火_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="火_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="火_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="火_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">水</span>
-                <select name="水_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="水_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="水_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="水_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">木</span>
-                <select name="木_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="木_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="木_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="木_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">金</span>
-                <select name="金_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="金_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="金_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="金_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">土</span>
-                <select name="土_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="土_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="土_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="土_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-              <div class="weekday-row" style="display:flex;align-items:center;gap:4px;padding:8px;background:var(--gray-100);border-radius:6px;">
-                <span class="weekday-label" style="min-width:24px;font-weight:600;color:var(--primary);">日</span>
-                <select name="日_開始_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="日_開始_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>〜</span>
-                <select name="日_終了_h" class="time-select hour-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-                <span>:</span>
-                <select name="日_終了_m" class="time-select minute-select" style="width:50px;padding:4px;font-size:0.85rem;"><option value="">--</option></select>
-              </div>
-            </div>
-          </div>
+<div style="margin-bottom:16px;">
+  <label class="form-label" style="margin-bottom:8px;display:block;">曜日ごとの希望時間帯（開始〜終了）</label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">月</span>
+      <select name="月_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="月_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="月_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="月_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">火</span>
+      <select name="火_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="火_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="火_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="火_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">水</span>
+      <select name="水_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="水_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="水_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="水_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">木</span>
+      <select name="木_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="木_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="木_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="木_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">金</span>
+      <select name="金_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="金_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="金_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="金_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">土</span>
+      <select name="土_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="土_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="土_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="土_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;padding:8px;background:var(--gray-100);border-radius:6px;flex-wrap:nowrap;grid-column:1/-1;max-width:50%;">
+      <span style="min-width:18px;font-weight:600;color:var(--primary);">日</span>
+      <select name="日_開始_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="日_開始_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;color:var(--gray-500);">〜</span>
+      <select name="日_終了_h" class="time-select hour-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+      <span style="font-size:0.75rem;">:</span>
+      <select name="日_終了_m" class="time-select minute-select" style="width:38px;padding:4px 2px;font-size:0.8rem;"></select>
+    </div>
+  </div>
+</div>
           
           <div id="student-message"></div>
         </form>
