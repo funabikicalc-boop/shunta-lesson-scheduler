@@ -3195,6 +3195,7 @@
 
     function clearBlockForm() {
       document.getElementById('block-form').reset();
+      document.querySelector('#block-form input[name="_row"]').value = '';  // ← これを追加
       document.getElementById('block-form-title').textContent = '新規登録';
       showMessage('block-message', '', '');
     }
