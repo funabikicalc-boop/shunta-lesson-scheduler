@@ -2187,6 +2187,432 @@
         font-size: 0.8rem !important;
       }
     }
+
+    /* ========== カレンダービュー ========== */
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--gray-100);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .view-toggle-btn {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: var(--gray-600);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .view-toggle-btn:hover {
+      background: var(--gray-200);
+    }
+
+    .view-toggle-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .view-toggle-btn .material-icons {
+      font-size: 1.1rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-top: 16px;
+    }
+
+    .calendar-header {
+      text-align: center;
+      padding: 8px 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .calendar-header.sun {
+      color: #DC2626;
+    }
+
+    .calendar-header.sat {
+      color: #2563EB;
+    }
+
+    .calendar-cell {
+      min-height: 90px;
+      background: white;
+      border-radius: 8px;
+      padding: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calendar-cell:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .calendar-cell.other-month {
+      background: var(--gray-50);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .calendar-cell.today {
+      border-color: var(--primary);
+      background: #EEF2FF;
+    }
+
+    .calendar-cell.has-lessons {
+      background: linear-gradient(135deg, #DBEAFE 0%, #E0E7FF 100%);
+    }
+
+    .calendar-cell.busy {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+    }
+
+    .calendar-cell.very-busy {
+      background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+    }
+
+    .calendar-date {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 4px;
+    }
+
+    .calendar-cell.sun .calendar-date {
+      color: #DC2626;
+    }
+
+    .calendar-cell.sat .calendar-date {
+      color: #2563EB;
+    }
+
+    .calendar-lessons {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .calendar-lesson-item {
+      font-size: 0.7rem;
+      padding: 2px 4px;
+      background: var(--primary);
+      color: white;
+      border-radius: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .calendar-lesson-item.place-suita {
+      background: #3B82F6;
+    }
+
+    .calendar-lesson-item.place-kandai {
+      background: #10B981;
+    }
+
+    .calendar-lesson-item.place-nagahori {
+      background: #F59E0B;
+    }
+
+    .calendar-lesson-count {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .calendar-more {
+      font-size: 0.7rem;
+      color: var(--gray-500);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    /* カレンダー日詳細モーダル */
+    .day-detail-header {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-200);
+      margin-bottom: 12px;
+    }
+
+    .day-detail-list {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .day-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .day-detail-item:hover {
+      background: #EEF2FF;
+    }
+
+    .day-detail-time {
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 100px;
+    }
+
+    .day-detail-student {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .day-detail-place {
+      padding: 4px 10px;
+      background: var(--gray-200);
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+
+    /* ========== レスポンシブ：カレンダー ========== */
+    @media (max-width: 768px) {
+      .schedule-header {
+        flex-wrap: wrap !important;
+      }
+
+      .view-toggle {
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+        order: 10;
+      }
+
+      .view-toggle-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 10px 8px;
+      }
+
+      .calendar-grid {
+        gap: 2px;
+        margin-top: 12px;
+      }
+
+      .calendar-header {
+        font-size: 0.7rem;
+        padding: 6px 2px;
+      }
+
+      .calendar-cell {
+        min-height: 65px;
+        padding: 3px;
+        border-radius: 6px;
+        border-width: 1px;
+      }
+
+      .calendar-cell:hover {
+        transform: none;
+      }
+
+      .calendar-date {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+      }
+
+      .calendar-lesson-count {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+        top: 2px;
+        right: 2px;
+        min-width: 16px;
+      }
+
+      .calendar-lessons {
+        gap: 1px;
+      }
+
+      .calendar-lesson-item {
+        font-size: 0.55rem;
+        padding: 1px 2px;
+        border-radius: 2px;
+      }
+
+      .calendar-more {
+        font-size: 0.55rem;
+        margin-top: 1px;
+      }
+
+      /* 日詳細モーダル */
+      .day-detail-item {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .day-detail-time {
+        min-width: auto;
+        font-size: 0.9rem;
+      }
+
+      .day-detail-student {
+        flex: none;
+        width: 100%;
+        order: -1;
+        font-size: 1rem;
+      }
+
+      .day-detail-place {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+      }
+    }
+
+    /* さらに小さい画面 */
+    @media (max-width: 375px) {
+      .calendar-cell {
+        min-height: 55px;
+        padding: 2px;
+      }
+
+      .calendar-date {
+        font-size: 0.7rem;
+      }
+
+      .calendar-lesson-item {
+        font-size: 0.5rem;
+      }
+
+      .calendar-lesson-count {
+        font-size: 0.55rem;
+        padding: 0 3px;
+      }
+    }
+
+    /* ========== 月謝表示 ========== */
+    .tuition-total {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: white;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tuition-total .material-icons {
+      font-size: 1.3rem;
+    }
+
+    .tuition-total strong {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .tuition-count {
+      opacity: 0.9;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .tuition-total {
+        width: 100%;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 8px;
+      }
+    }
+
+    /* ========== 月謝内訳モーダル ========== */
+    .tuition-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tuition-detail-item.excluded {
+      opacity: 0.5;
+      background: var(--gray-100);
+    }
+
+    .tuition-detail-name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .tuition-detail-info {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+
+    .tuition-detail-amount {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .tuition-detail-amount.zero {
+      color: var(--gray-400);
+    }
+
+    .tuition-place-group {
+      padding: 8px 12px;
+      background: var(--gray-200);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--gray-700);
+      margin-top: 12px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tuition-place-group:first-child {
+      margin-top: 0;
+    }
+
+    .tuition-place-subtotal {
+      margin-left: auto;
+      color: var(--success);
+    }
   </style>
 
 </head>
@@ -2237,7 +2663,7 @@
     <main class="main-content">
       <!-- スケジュール作成 -->
       <div id="tab-schedule" class="tab-panel active">
-        <div class="schedule-header">
+        <div class="schedule-header" style="flex-wrap: wrap;">
           <div class="form-group">
             <label class="form-label">年</label>
             <input type="number" id="schedule-year" class="form-input" style="width:100px">
@@ -2254,6 +2680,18 @@
             <span class="material-icons">event_available</span>
             確定してカレンダー登録
           </button>
+
+          <!-- 表示切替トグル -->
+          <div class="view-toggle" id="schedule-view-toggle" style="display:none;">
+            <button class="view-toggle-btn" data-view="list" onclick="switchScheduleView('list')">
+              <span class="material-icons">view_list</span>
+              リスト
+            </button>
+            <button class="view-toggle-btn active" data-view="calendar" onclick="switchScheduleView('calendar')">
+              <span class="material-icons">calendar_view_month</span>
+              カレンダー
+            </button>
+          </div>
         </div>
 
         <div id="draft-notice" class="message message-info" style="display:none;">
@@ -2278,6 +2716,9 @@
           </div>
         </div>
 
+        <!-- カレンダービュー（スケジュール作成用） -->
+        <div id="schedule-calendar-view" style="display:none;"></div>
+
         <div id="schedule-result" class="schedule-result">
           <div class="empty-state">
             <span class="material-icons">event_available</span>
@@ -2288,7 +2729,7 @@
 
       <!-- 時系列ビュー -->
       <div id="tab-timeline" class="tab-panel">
-        <div class="schedule-header">
+        <div class="schedule-header" style="flex-wrap: wrap;">
           <div class="form-group">
             <label class="form-label">年</label>
             <input type="number" id="timeline-year" class="form-input" style="width:100px">
@@ -2305,6 +2746,18 @@
             <span class="material-icons">add</span>
             新規追加
           </button>
+
+          <!-- 表示切替トグル -->
+          <div class="view-toggle" id="timeline-view-toggle" style="display:none;">
+            <button class="view-toggle-btn" data-view="list" onclick="switchTimelineView('list')">
+              <span class="material-icons">view_list</span>
+              リスト
+            </button>
+            <button class="view-toggle-btn active" data-view="calendar" onclick="switchTimelineView('calendar')">
+              <span class="material-icons">calendar_view_month</span>
+              カレンダー
+            </button>
+          </div>
         </div>
 
         <div id="timeline-stats" class="stats" style="display:none;">
@@ -2330,6 +2783,9 @@
           </button>
         </div>
 
+        <!-- カレンダービュー（時系列用） -->
+        <div id="timeline-calendar-view" style="display:none;"></div>
+
         <div id="timeline-result" class="schedule-result">
           <div class="empty-state">
             <span class="material-icons">view_timeline</span>
@@ -2341,12 +2797,20 @@
       <!-- 生徒管理 -->
       <div id="tab-students" class="tab-panel">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header" style="flex-wrap:wrap;gap:12px;">
             <h3 class="card-title">
               <span class="material-icons">list</span>
               生徒一覧
             </h3>
-            <div style="display:flex;gap:8px;">
+            <!-- 月謝合計表示 -->
+            <div id="tuition-total" class="tuition-total" style="display:none;cursor:pointer;"
+              onclick="openTuitionModal()">
+              <span class="material-icons">payments</span>
+              <span>月謝合計: <strong id="tuition-amount">¥0</strong></span>
+              <span class="tuition-count">（<span id="tuition-student-count">0</span>名）</span>
+              <span class="material-icons" style="font-size:1rem;margin-left:4px;">open_in_new</span>
+            </div>
+            <div style="display:flex;gap:8px;margin-left:auto;">
               <button class="btn btn-primary" onclick="openStudentModal(null)">
                 <span class="material-icons">person_add</span>
                 新規登録
@@ -2808,6 +3272,9 @@
 
       // 下書きがあれば読み込み
       loadDraft();
+
+      // 時系列ビューを自動読み込み
+      loadTimeline();
     }
 
     // 時間プルダウン初期化
@@ -2855,6 +3322,11 @@
       document.querySelectorAll('.tab-panel').forEach(panel => {
         panel.classList.toggle('active', panel.id === 'tab-' + tabId);
       });
+
+      // タブ切替時に自動読み込み
+      if (tabId === 'timeline' && timelineData.length === 0) {
+        loadTimeline();
+      }
     }
 
     // ========== 場所マスタ読み込み ==========
@@ -2898,6 +3370,7 @@
 
           if (students.length === 0) {
             container.innerHTML = '<div class="empty-state"><span class="material-icons">person_off</span><p>生徒が登録されていません</p></div>';
+            document.getElementById('tuition-total').style.display = 'none';
             return;
           }
 
@@ -2913,6 +3386,7 @@
 
       if (students.length === 0) {
         container.innerHTML = '<div class="empty-state"><span class="material-icons">search_off</span><p>該当する生徒がいません</p></div>';
+        document.getElementById('tuition-total').style.display = 'none';
         return;
       }
 
@@ -2923,12 +3397,32 @@
         '未設定': { bg: '#6B7280', light: '#F3F4F6', text: 'white' }
       };
 
+      // 月謝合計を計算（除外されていない生徒のみ）
+      let totalTuition = 0;
+      let activeStudentCount = 0;
+
+      for (const s of students) {
+        const isExcluded = String(s['月内除外']).toUpperCase() === 'TRUE';
+        if (!isExcluded) {
+          const tuition = parseInt(s['月謝']) || 0;
+          totalTuition += tuition;
+          if (tuition > 0) activeStudentCount++;
+        }
+      }
+
+      // 月謝合計を表示
+      document.getElementById('tuition-total').style.display = 'flex';
+      document.getElementById('tuition-amount').textContent = '¥' + totalTuition.toLocaleString();
+      document.getElementById('tuition-student-count').textContent = activeStudentCount;
+
       let html = '';
       let currentPlace = null;
 
       for (const s of students) {
         const place = s['第1希望場所'] || '未設定';
         const color = placeColors[place] || { bg: '#8B5CF6', light: '#EDE9FE', text: 'white' };
+        const isExcluded = String(s['月内除外']).toUpperCase() === 'TRUE';
+        const tuition = parseInt(s['月謝']) || 0;
 
         if (place !== currentPlace) {
           currentPlace = place;
@@ -2954,12 +3448,12 @@
 
         html += `
       <div class="list-item" onclick='openStudentModal(${JSON.stringify(s).replace(/'/g, "\\'")})'
-           style="background: ${color.light}; border-left: 4px solid ${color.bg};">
+           style="background: ${isExcluded ? '#F3F4F6' : color.light}; border-left: 4px solid ${color.bg}; ${isExcluded ? 'opacity:0.6;' : ''}">
         <div class="list-item-icon" style="background: ${color.bg};">${(s['氏名'] || '?')[0]}</div>
         <div class="list-item-content">
-          <div class="list-item-title">${s['氏名'] || '名前なし'}</div>
+          <div class="list-item-title">${s['氏名'] || '名前なし'}${isExcluded ? ' <span style="color:#EF4444;font-size:0.75rem;">（除外中）</span>' : ''}</div>
           <div class="list-item-subtitle">
-            ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分
+            ${s['月コマ数'] || 0}コマ ｜ ${s['レッスン分'] || 0}分${tuition > 0 ? ' ｜ ¥' + tuition.toLocaleString() : ''}
           </div>
         </div>
         <span class="material-icons" style="color:var(--gray-400);">chevron_right</span>
@@ -4218,6 +4712,396 @@
           msgEl.innerHTML = `<div class="message message-error"><span class="material-icons">error</span>エラー: ${err.message}</div>`;
         });
     }
+
+    // ========== カレンダービュー機能 ==========
+    let currentScheduleView = 'calendar';
+    let currentTimelineView = 'calendar';
+
+    // スケジュール作成の表示切替
+    function switchScheduleView(view) {
+      currentScheduleView = view;
+      document.querySelectorAll('#schedule-view-toggle .view-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === view);
+      });
+
+      if (view === 'list') {
+        document.getElementById('schedule-result').style.display = 'block';
+        document.getElementById('schedule-calendar-view').style.display = 'none';
+      } else {
+        document.getElementById('schedule-result').style.display = 'none';
+        document.getElementById('schedule-calendar-view').style.display = 'block';
+        renderScheduleCalendar();
+      }
+    }
+
+    // 時系列ビューの表示切替
+    function switchTimelineView(view) {
+      currentTimelineView = view;
+      document.querySelectorAll('#timeline-view-toggle .view-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === view);
+      });
+
+      if (view === 'list') {
+        document.getElementById('timeline-result').style.display = 'block';
+        document.getElementById('timeline-calendar-view').style.display = 'none';
+        document.getElementById('timeline-bulk-actions').style.display = timelineData.length > 0 ? 'flex' : 'none';
+      } else {
+        document.getElementById('timeline-result').style.display = 'none';
+        document.getElementById('timeline-calendar-view').style.display = 'block';
+        document.getElementById('timeline-bulk-actions').style.display = 'none';
+        renderTimelineCalendar();
+      }
+    }
+
+    // カレンダーグリッド生成（共通）
+    function generateCalendarGrid(year, month, items, onClick) {
+      const firstDay = new Date(year, month - 1, 1);
+      const lastDay = new Date(year, month, 0);
+      const startDayOfWeek = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+
+      // 日付ごとにレッスンをグループ化
+      const byDate = {};
+      items.forEach(item => {
+        const dateStr = item['日付'];
+        if (!byDate[dateStr]) byDate[dateStr] = [];
+        byDate[dateStr].push(item);
+      });
+
+      // 今日の日付
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}`;
+
+      let html = '<div class="calendar-grid">';
+
+      // 曜日ヘッダー
+      const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+      weekdays.forEach((wd, i) => {
+        let cls = 'calendar-header';
+        if (i === 0) cls += ' sun';
+        if (i === 6) cls += ' sat';
+        html += `<div class="${cls}">${wd}</div>`;
+      });
+
+      // 前月の日を埋める
+      const prevMonth = new Date(year, month - 2, 1);
+      const prevMonthDays = new Date(year, month - 1, 0).getDate();
+      for (let i = startDayOfWeek - 1; i >= 0; i--) {
+        html += `<div class="calendar-cell other-month"><div class="calendar-date">${prevMonthDays - i}</div></div>`;
+      }
+
+      // 当月の日
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${year}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+        const dayOfWeek = new Date(year, month - 1, day).getDay();
+        const lessons = byDate[dateStr] || [];
+        const lessonCount = lessons.length;
+
+        let cellClass = 'calendar-cell';
+        if (dayOfWeek === 0) cellClass += ' sun';
+        if (dayOfWeek === 6) cellClass += ' sat';
+        if (dateStr === todayStr) cellClass += ' today';
+        if (lessonCount > 0) {
+          cellClass += ' has-lessons';
+          if (lessonCount >= 3) cellClass += ' busy';
+          if (lessonCount >= 5) cellClass += ' very-busy';
+        }
+
+        html += `<div class="${cellClass}" onclick="${onClick}('${dateStr}')">`;
+        html += `<div class="calendar-date">${day}</div>`;
+
+        if (lessonCount > 0) {
+          html += `<div class="calendar-lesson-count">${lessonCount}</div>`;
+          html += '<div class="calendar-lessons">';
+
+          // 最大3件まで表示
+          const showItems = lessons.slice(0, 3);
+          showItems.forEach(item => {
+            let placeClass = '';
+            if (item['場所'] === '吹田') placeClass = 'place-suita';
+            else if (item['場所'] === '関大前') placeClass = 'place-kandai';
+            else if (item['場所'] === '長堀') placeClass = 'place-nagahori';
+
+            html += `<div class="calendar-lesson-item ${placeClass}">${item['開始']} ${item['生徒']}</div>`;
+          });
+
+          if (lessons.length > 3) {
+            html += `<div class="calendar-more">+${lessons.length - 3}件</div>`;
+          }
+          html += '</div>';
+        }
+        html += '</div>';
+      }
+
+      // 次月の日を埋める
+      const cellsRendered = startDayOfWeek + daysInMonth;
+      const remaining = (7 - (cellsRendered % 7)) % 7;
+      for (let i = 1; i <= remaining; i++) {
+        html += `<div class="calendar-cell other-month"><div class="calendar-date">${i}</div></div>`;
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    // スケジュール作成のカレンダー表示
+    function renderScheduleCalendar() {
+      const year = parseInt(document.getElementById('schedule-year').value);
+      const month = parseInt(document.getElementById('schedule-month').value);
+      const container = document.getElementById('schedule-calendar-view');
+
+      if (!currentScheduleData.items || currentScheduleData.items.length === 0) {
+        container.innerHTML = '<div class="empty-state"><span class="material-icons">calendar_today</span><p>スケジュールを生成してください</p></div>';
+        return;
+      }
+
+      container.innerHTML = generateCalendarGrid(year, month, currentScheduleData.items, 'openScheduleDayDetail');
+    }
+
+    // 時系列ビューのカレンダー表示
+    function renderTimelineCalendar() {
+      const year = parseInt(document.getElementById('timeline-year').value);
+      const month = parseInt(document.getElementById('timeline-month').value);
+      const container = document.getElementById('timeline-calendar-view');
+
+      if (!timelineData || timelineData.length === 0) {
+        container.innerHTML = '<div class="empty-state"><span class="material-icons">calendar_today</span><p>データを読み込んでください</p></div>';
+        return;
+      }
+
+      container.innerHTML = generateCalendarGrid(year, month, timelineData, 'openTimelineDayDetail');
+    }
+
+    // スケジュール作成の日詳細表示
+    function openScheduleDayDetail(dateStr) {
+      const lessons = currentScheduleData.items.filter(item => item['日付'] === dateStr);
+
+      if (lessons.length === 0) {
+        return;
+      }
+
+      const date = new Date(dateStr.replace(/\//g, '-'));
+      const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+      document.getElementById('day-detail-title').textContent = `${dateStr}（${weekdays[date.getDay()]}）`;
+
+      let html = '';
+      lessons.sort((a, b) => (a['開始'] || '').localeCompare(b['開始'] || ''));
+
+      lessons.forEach((item, idx) => {
+        const itemIdx = currentScheduleData.items.findIndex(i =>
+          i['日付'] === item['日付'] && i['開始'] === item['開始'] && i['生徒'] === item['生徒']
+        );
+        html += `
+      <div class="day-detail-item" onclick="closeDayDetailModal(); openEditModal(${itemIdx});">
+        <span class="day-detail-time">${item['開始']} - ${item['終了']}</span>
+        <span class="day-detail-student">${item['生徒']}</span>
+        <span class="day-detail-place">${item['場所'] || '-'}</span>
+        <span class="material-icons" style="color:var(--gray-400);">edit</span>
+      </div>
+    `;
+      });
+
+      document.getElementById('day-detail-content').innerHTML = html;
+      document.getElementById('day-detail-modal').classList.add('active');
+    }
+
+    // 時系列ビューの日詳細表示
+    function openTimelineDayDetail(dateStr) {
+      const lessons = timelineData.filter(item => item['日付'] === dateStr);
+
+      if (lessons.length === 0) {
+        return;
+      }
+
+      const date = new Date(dateStr.replace(/\//g, '-'));
+      const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+      document.getElementById('day-detail-title').textContent = `${dateStr}（${weekdays[date.getDay()]}）`;
+
+      let html = '';
+      lessons.sort((a, b) => (a['開始'] || '').localeCompare(b['開始'] || ''));
+
+      lessons.forEach(item => {
+        html += `
+      <div class="day-detail-item" onclick="closeDayDetailModal(); openTimelineEditModal(${item._row});">
+        <span class="day-detail-time">${item['開始']} - ${item['終了']}</span>
+        <span class="day-detail-student">${item['生徒']}</span>
+        <span class="day-detail-place">${item['場所'] || '-'}</span>
+        <span class="material-icons" style="color:var(--gray-400);">edit</span>
+      </div>
+    `;
+      });
+
+      document.getElementById('day-detail-content').innerHTML = html;
+      document.getElementById('day-detail-modal').classList.add('active');
+    }
+
+    function closeDayDetailModal() {
+      document.getElementById('day-detail-modal').classList.remove('active');
+    }
+
+    // 既存関数を拡張：renderScheduleWithEdit の最後でトグル表示
+    const originalRenderScheduleWithEdit = renderScheduleWithEdit;
+    renderScheduleWithEdit = function (items, unassigned) {
+      originalRenderScheduleWithEdit(items, unassigned);
+
+      // ビュートグルを表示
+      if (items.length > 0) {
+        document.getElementById('schedule-view-toggle').style.display = 'flex';
+        if (currentScheduleView === 'calendar') {
+          renderScheduleCalendar();
+        }
+      } else {
+        document.getElementById('schedule-view-toggle').style.display = 'none';
+      }
+    };
+
+    // 既存関数を拡張：renderTimeline の最後でトグル表示
+    const originalRenderTimeline = renderTimeline;
+    renderTimeline = function () {
+      originalRenderTimeline();
+
+      // ビュートグルを表示
+      if (timelineData.length > 0) {
+        document.getElementById('timeline-view-toggle').style.display = 'flex';
+        if (currentTimelineView === 'calendar') {
+          document.getElementById('timeline-result').style.display = 'none';
+          document.getElementById('timeline-calendar-view').style.display = 'block';
+          document.getElementById('timeline-bulk-actions').style.display = 'none';
+          renderTimelineCalendar();
+        }
+      } else {
+        document.getElementById('timeline-view-toggle').style.display = 'none';
+      }
+    };
+
+    // ========== 月謝内訳モーダル ==========
+    function openTuitionModal() {
+      if (!allStudents || allStudents.length === 0) {
+        alert('生徒データがありません');
+        return;
+      }
+
+      // 場所ごとにグループ化
+      const byPlace = {};
+      let grandTotal = 0;
+      let activeCount = 0;
+
+      for (const s of allStudents) {
+        const place = s['第1希望場所'] || '未設定';
+        const isExcluded = String(s['月内除外']).toUpperCase() === 'TRUE';
+        const tuition = parseInt(s['月謝']) || 0;
+
+        if (!byPlace[place]) {
+          byPlace[place] = { students: [], subtotal: 0 };
+        }
+
+        byPlace[place].students.push({
+          name: s['氏名'],
+          tuition: tuition,
+          slots: s['月コマ数'] || 0,
+          excluded: isExcluded
+        });
+
+        if (!isExcluded) {
+          grandTotal += tuition;
+          if (tuition > 0) activeCount++;
+        }
+      }
+
+      // 各場所の小計を計算
+      for (const place in byPlace) {
+        byPlace[place].subtotal = byPlace[place].students
+          .filter(s => !s.excluded)
+          .reduce((sum, s) => sum + s.tuition, 0);
+      }
+
+      // サマリー更新
+      document.getElementById('tuition-modal-total').textContent = '¥' + grandTotal.toLocaleString();
+      document.getElementById('tuition-modal-count').textContent = activeCount;
+
+      // 内訳リスト生成
+      const placeOrder = ['吹田', '関大前', '長堀', '未設定'];
+      const placeColors = {
+        '吹田': '#3B82F6',
+        '関大前': '#10B981',
+        '長堀': '#F59E0B',
+        '未設定': '#6B7280'
+      };
+
+      let html = '';
+
+      for (const place of placeOrder) {
+        if (!byPlace[place]) continue;
+
+        const group = byPlace[place];
+        const color = placeColors[place] || '#6B7280';
+
+        html += `
+      <div class="tuition-place-group" style="border-left:4px solid ${color};">
+        <span class="material-icons" style="font-size:1rem;">location_on</span>
+        ${place}
+        <span class="tuition-place-subtotal">¥${group.subtotal.toLocaleString()}</span>
+      </div>
+    `;
+
+        // 金額の大きい順にソート
+        group.students.sort((a, b) => b.tuition - a.tuition);
+
+        for (const student of group.students) {
+          const amountClass = student.tuition > 0 ? '' : 'zero';
+          const excludedClass = student.excluded ? 'excluded' : '';
+
+          html += `
+        <div class="tuition-detail-item ${excludedClass}">
+          <div class="tuition-detail-name">
+            ${student.name}
+            ${student.excluded ? '<span style="color:#EF4444;font-size:0.7rem;">（除外中）</span>' : ''}
+          </div>
+          <div class="tuition-detail-info">${student.slots}コマ/月</div>
+          <div class="tuition-detail-amount ${amountClass}">
+            ${student.tuition > 0 ? '¥' + student.tuition.toLocaleString() : '-'}
+          </div>
+        </div>
+      `;
+        }
+      }
+
+      // 未設定以外の場所があれば表示
+      for (const place in byPlace) {
+        if (placeOrder.includes(place)) continue;
+
+        const group = byPlace[place];
+        html += `
+      <div class="tuition-place-group">
+        <span class="material-icons" style="font-size:1rem;">location_on</span>
+        ${place}
+        <span class="tuition-place-subtotal">¥${group.subtotal.toLocaleString()}</span>
+      </div>
+    `;
+
+        for (const student of group.students) {
+          const amountClass = student.tuition > 0 ? '' : 'zero';
+          const excludedClass = student.excluded ? 'excluded' : '';
+
+          html += `
+        <div class="tuition-detail-item ${excludedClass}">
+          <div class="tuition-detail-name">${student.name}</div>
+          <div class="tuition-detail-info">${student.slots}コマ/月</div>
+          <div class="tuition-detail-amount ${amountClass}">
+            ${student.tuition > 0 ? '¥' + student.tuition.toLocaleString() : '-'}
+          </div>
+        </div>
+      `;
+        }
+      }
+
+      document.getElementById('tuition-detail-list').innerHTML = html;
+      document.getElementById('tuition-modal').classList.add('active');
+    }
+
+    function closeTuitionModal() {
+      document.getElementById('tuition-modal').classList.remove('active');
+    }
   </script>
 
   <!-- 編集モーダル -->
@@ -4407,6 +5291,10 @@
               <input type="number" name="月コマ数" class="form-input" min="0">
             </div>
             <div class="form-group">
+              <label class="form-label">月謝（円）</label>
+              <input type="number" name="月謝" class="form-input" min="0" step="100" placeholder="例: 8000">
+            </div>
+            <div class="form-group">
               <label class="form-label">レッスン分</label>
               <select name="レッスン分" class="form-select">
                 <option value="">-- 選択 --</option>
@@ -4568,6 +5456,50 @@
     </div>
   </div>
 
+  <!-- 日詳細モーダル -->
+  <div id="day-detail-modal" class="modal-overlay" onclick="if(event.target===this)closeDayDetailModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span class="material-icons">event</span>
+          <span id="day-detail-title">日付</span>
+        </h3>
+        <button class="modal-close" onclick="closeDayDetailModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="day-detail-content" class="day-detail-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeDayDetailModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 月謝内訳モーダル -->
+  <div id="tuition-modal" class="modal-overlay" onclick="if(event.target===this)closeTuitionModal()">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span class="material-icons">payments</span>
+          月謝内訳
+        </h3>
+        <button class="modal-close" onclick="closeTuitionModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding:0;">
+        <!-- 合計サマリー -->
+        <div id="tuition-summary"
+          style="padding:20px;background:linear-gradient(135deg,#10B981 0%,#059669 100%);color:white;text-align:center;">
+          <div style="font-size:2rem;font-weight:700;" id="tuition-modal-total">¥0</div>
+          <div style="opacity:0.9;margin-top:4px;">月謝合計（<span id="tuition-modal-count">0</span>名）</div>
+        </div>
+        <!-- 内訳リスト -->
+        <div id="tuition-detail-list" style="padding:16px;max-height:50vh;overflow-y:auto;"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeTuitionModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
